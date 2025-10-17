@@ -4,6 +4,7 @@ from predict_student import predict_student_outcome
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
+from flask import send_from_directory
 
 # Load environment variables from .env
 load_dotenv()
@@ -48,6 +49,19 @@ def get_student(roll_no):
 
 
 if __name__ == "__main__":
-    app.run(port=8000, debug=True)
+    from os import environ
+    app.run(host="0.0.0.0", port=int(environ.get("PORT", 8000)))
+
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def serve_frontend(path):
+    root_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../client/build')
+    if path != "" and os.path.exists(os.path.join(root_dir, path)):
+        return send_from_directory(root_dir, path)
+    else:
+        return send_from_directory(root_dir, 'index.html')
+
 
 
