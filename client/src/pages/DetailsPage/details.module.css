@@ -1,0 +1,290 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #1e293b;
+  padding: 0 20px;
+}
+
+/* HEADER */
+.header {
+  text-align: center;
+  padding: 40px 0 10px;
+}
+
+.brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e40af;
+  margin-bottom: 5px;
+}
+
+.tagline {
+  font-size: 1rem;
+  color: #475569;
+  font-weight: 400;
+}
+
+/* CARD */
+.card {
+  background: #ffffffcc;
+  backdrop-filter: blur(8px);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 40px 35px;
+  max-width: 900px;
+  margin: 40px auto;
+  text-align: left;
+  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.08);
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* GRID */
+.dataGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px 25px;
+  margin-bottom: 25px;
+}
+
+.dataRow {
+  display: flex;
+  justify-content: space-between;
+  background: #f1f5f9;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.label {
+  font-weight: 600;
+  color: #1e40af;
+}
+
+.value {
+  color: #334155;
+}
+
+/* PREDICTION BOX */
+.predictionBox {
+  background: #e0f2fe;
+  border-left: 4px solid #2563eb;
+  border-radius: 10px;
+  padding: 15px 20px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.predictionTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin-bottom: 5px;
+}
+
+.predictionText {
+  color: #334155;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.confidence {
+  color: #0f766e;
+  font-weight: 600;
+}
+
+/* BUTTON */
+.predictButton {
+  display: block;
+  margin: 25px auto 10px;
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border: none;
+  padding: 14px 45px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.3);
+}
+
+.predictButton:hover:not(:disabled) {
+  background: linear-gradient(90deg, #1d4ed8, #1e3a8a);
+  box-shadow: 0 5px 20px rgba(37, 99, 235, 0.4);
+  transform: translateY(-2px);
+}
+
+.predictButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* NOTE */
+.note {
+  font-size: 0.9rem;
+  color: #64748b;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #64748b;
+  padding: 15px 0 25px;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .dataGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Top-left back button */
+.backButton {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: transparent;
+  border: none;
+  color: #1e40af;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.backButton:hover {
+  color: #2563eb;
+}
+
+/* Bottom "Predict for Another Student" button */
+.anotherButton {
+  display: block;
+  margin: 25px auto 10px;
+  background: linear-gradient(90deg, #10b981, #047857);
+  color: #ffffff;
+  border: none;
+  padding: 14px 45px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+}
+
+.anotherButton:hover {
+  background: linear-gradient(90deg, #047857, #065f46);
+  box-shadow: 0 5px 20px rgba(16, 185, 129, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Keep existing styles from previous DetailsPage CSS */
+/* Justification box */
+.justificationBox {
+  background-color: #f5f8fa;
+  /* light background similar to card */
+  border-left: 4px solid #4a90e2;
+  /* highlight color */
+  padding: 16px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.justificationBox h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.justificationBox ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.justificationBox li {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+/* Prediction container wrapper */
+.predictionContainer {
+  margin-top: 20px;
+}
+
+/* Optional: hover effect for items */
+.justificationBox li:hover {
+  background-color: #eaf2fb;
+  border-radius: 4px;
+  padding: 2px 4px;
+}
+
+/* Fairness box */
+.fairnessBox {
+  background-color: #fff4e5;
+  /* soft highlight background */
+  border-left: 4px solid #f5a623;
+  /* orange accent for fairness */
+  padding: 16px;
+  margin-top: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fairnessBox h3 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.fairnessBox table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.fairnessBox th,
+.fairnessBox td {
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 14px;
+  color: #555;
+  border-bottom: 1px solid #ddd;
+}
+
+.fairnessBox th {
+  background-color: #fdf2e9;
+  font-weight: 600;
+}
+
+.fairnessBox td {
+  background-color: #fffaf0;
+}
+
+.fairnessBox tr:hover {
+  background-color: #fff0d9;
+}
+
+.fairnessBox .metricHighlight {
+  font-weight: bold;
+  color: #f57c00;
+  /* highlight max/min values */
+}

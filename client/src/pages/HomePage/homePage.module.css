@@ -1,0 +1,118 @@
+/* === GLOBAL === */
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc, #e0f2fe);
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #1e293b;
+  padding: 0 20px;
+}
+
+/* === HEADER === */
+.header {
+  text-align: center;
+  padding: 40px 0 10px;
+}
+
+.brand {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e40af; /* Deep blue for authority */
+  margin-bottom: 5px;
+  letter-spacing: 0.5px;
+}
+
+.tagline {
+  font-size: 1rem;
+  color: #475569;
+  font-weight: 400;
+}
+
+/* === MAIN CARD === */
+.card {
+  background: #ffffffcc;
+  backdrop-filter: blur(8px);
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 50px 40px;
+  max-width: 700px;
+  width: 100%;
+  margin: 40px auto;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(30, 64, 175, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 25px rgba(30, 64, 175, 0.12);
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #1e3a8a;
+  margin-bottom: 15px;
+}
+
+.explanation {
+  font-size: 1.1rem;
+  color: #334155;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+/* === BUTTON === */
+.predictButton {
+  background: linear-gradient(90deg, #2563eb, #1d4ed8);
+  color: #ffffff;
+  border: none;
+  padding: 14px 45px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.3);
+}
+
+.predictButton:hover {
+  background: linear-gradient(90deg, #1d4ed8, #1e3a8a);
+  box-shadow: 0 5px 20px rgba(37, 99, 235, 0.4);
+  transform: translateY(-2px);
+}
+
+/* === FOOTNOTE & FOOTER === */
+.note {
+  font-size: 0.9rem;
+  margin-top: 25px;
+  color: #64748b;
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #64748b;
+  padding: 15px 0 25px;
+  border-top: 1px solid #e2e8f0;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .card {
+    padding: 40px 25px;
+  }
+  .title {
+    font-size: 1.8rem;
+  }
+  .explanation {
+    font-size: 1rem;
+  }
+  .predictButton {
+    width: 100%;
+    padding: 12px;
+  }
+}
