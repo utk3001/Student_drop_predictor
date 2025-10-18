@@ -49,7 +49,7 @@ const DetailsPage = () => {
         const fetchStudentData = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:8000/get_student/${rollNumber}`
+                    `/get_student/${rollNumber}`
                 );
                 setStudentData(response.data);
             } catch (err) {
@@ -69,7 +69,7 @@ const DetailsPage = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:8000/predict",
+                "/predict",
                 studentData
             );
             console.log("Prediction response:", response.data);

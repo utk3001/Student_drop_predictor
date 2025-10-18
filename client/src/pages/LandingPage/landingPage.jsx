@@ -37,7 +37,7 @@ const LandingPage = () => {
     const [editable, setEditable] = useState(false);
     const [formData, setFormData] = useState(getInitialFormData);
 
-    // ✅ Cache only economic values when they change
+    // Cache only economic values when they change
     useEffect(() => {
         const { unemploymentRate, inflationRate, GDP } = formData;
         localStorage.setItem(
