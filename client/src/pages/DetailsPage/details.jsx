@@ -7,6 +7,7 @@ const DetailsPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const rollNumber = location.state?.rollNumber;
+    const API_BASE_URL = process.env.REACT_APP_API_URL;
 
     const [studentData, setStudentData] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -49,7 +50,7 @@ const DetailsPage = () => {
         const fetchStudentData = async () => {
             try {
                 const response = await axios.get(
-                    `/get_student/${rollNumber}`
+                    `${API_BASE_URL}/get_student/${rollNumber}`
                 );
                 setStudentData(response.data);
             } catch (err) {
@@ -69,7 +70,7 @@ const DetailsPage = () => {
 
         try {
             const response = await axios.post(
-                "/predict",
+                `${API_BASE_URL}/predict`,
                 studentData
             );
             console.log("Prediction response:", response.data);
