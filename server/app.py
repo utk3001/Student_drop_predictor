@@ -28,6 +28,20 @@ def not_found(e):
 def home():
     return "Student Outcome Prediction API is running." 
 
+@app.route("/staticimg/explanations/<path:filename>")
+def serve_explanations(filename):
+    """
+    Serve explanation images (LIME/SHAP) from backend static folder.
+    Example: /static/explanations/local_lime_explanation.png
+    """
+    explanations_dir = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "staticimg/explanations"
+    )
+    file_path = os.path.join(explanations_dir, filename)
+    if not os.path.exists(file_path):
+        return jsonify({"error": "Explanation image not found"}), 404
+    return send_from_directory(explanations_dir, filename)
+
 @app.route("/predict", methods=["POST"])
 def predict():
     input_data = request.json  # JSON with 36 features

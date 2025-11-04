@@ -35,16 +35,16 @@ const DetailsPage = () => {
     const FIELD_LABELS = {
         "Daytime/evening attendance": "Daytime/Evening Attendance",
         "Previous qualification": "Previous Qualification",
-        "Previous qualification (grade)":"Previous Qualification Grade",
-        "Age at enrollment":  "Age at Enrollment",
+        "Previous qualification (grade)": "Previous Qualification Grade",
+        "Age at enrollment": "Age at Enrollment",
         "Educational special needs": "Special Needs",
-        "Admission grade":"Admission Grade",
+        "Admission grade": "Admission Grade",
         "International": "International Student",
-        "Curricular units 1st sem (enrolled)":"1st Sem Enrolled Units",
-        "Curricular units 2nd sem (enrolled)":"2nd Sem Enrolled Units",
-        "Curricular units 1st sem (grade)":"1st Sem Grade",
-        "Curricular units 2nd sem (grade)":"2nd Sem Grade",
-};
+        "Curricular units 1st sem (enrolled)": "1st Sem Enrolled Units",
+        "Curricular units 2nd sem (enrolled)": "2nd Sem Enrolled Units",
+        "Curricular units 1st sem (grade)": "1st Sem Grade",
+        "Curricular units 2nd sem (grade)": "2nd Sem Grade",
+    };
 
     useEffect(() => {
         const fetchStudentData = async () => {
@@ -81,7 +81,10 @@ const DetailsPage = () => {
                 overall_accuracy: response.data.overall_accuracy,
                 fairness_metrics: response.data.fairness_metrics || [],
                 justification: response.data.justification || [],
+                local_explanation_url: response.data.local_explanation_url,
+                global_explanation_url: response.data.global_explanation_url,
             });
+
         } catch (err) {
             console.error("Prediction error:", err);
             setError(err.response?.data?.error || "Prediction failed");
@@ -160,7 +163,8 @@ const DetailsPage = () => {
                             </p>
                             {prediction.overall_accuracy && (
                                 <p className={styles.predictionText}>
-                                    Overall Accuracy: <strong>{prediction.overall_accuracy}</strong>
+                                    Overall Model Accuracy:{" "}
+                                    <strong>{prediction.overall_accuracy}</strong>
                                 </p>
                             )}
                         </div>
@@ -168,7 +172,9 @@ const DetailsPage = () => {
                         {/* Justification */}
                         {prediction.justification?.length > 0 && (
                             <div className={styles.justificationBox}>
-                                <h3 className={styles.predictionTitle}>Why the model predicted this?</h3>
+                                <h3 className={styles.predictionTitle}>
+                                    Why did the model predict this?
+                                </h3>
                                 <ul>
                                     {prediction.justification.map((reason, index) => (
                                         <li key={index}>{reason}</li>
@@ -177,28 +183,64 @@ const DetailsPage = () => {
                             </div>
                         )}
 
+                        {/* Local LIME Explanation */}
+                        {prediction.local_explanation_url && (
+                            <div className={styles.explanationBox}>
+                                <h3 className={styles.predictionTitle}>🔍 Individual Student Explanation</h3>
+                                <p className={styles.explanationText}>
+                                    This graph shows which factors most influenced <strong>this specific student’s prediction</strong>.
+                                    Bars towards the right <strong>increase dropout likelihood</strong>, while those towards the left <strong>reduce it</strong>.
+                                </p>
+                                <img
+                                    src={`${API_BASE_URL}${prediction.local_explanation_url}`}
+                                    alt="Local LIME Explanation"
+                                    className={styles.explanationImage}
+                                />
+                            </div>
+                        )}
+
+                        {/* Global SHAP Explanation */}
+                        {prediction.global_explanation_url && (
+                            <div className={styles.explanationBox}>
+                                <h3 className={styles.predictionTitle}>🌍 Overall Model Behavior</h3>
+                                <p className={styles.explanationText}>
+                                    This chart summarizes how the model generally makes decisions across <strong>all students</strong>.
+                                    Features higher on the list have a larger impact on dropout prediction on average.
+                                </p>
+                                <img
+                                    src={`${API_BASE_URL}${prediction.global_explanation_url}`}
+                                    alt="Global SHAP Explanation"
+                                    className={styles.explanationImage}
+                                />
+                            </div>
+                        )}
+
                         {/* Fairness Metrics */}
                         {prediction.fairness_metrics?.length > 0 && (
                             <div className={styles.fairnessBox}>
-                                <h3 className={styles.predictionTitle}>Fairness Metrics after Bias Mitigation</h3>
+                                <h3 className={styles.predictionTitle}>
+                                    Fairness Metrics after Bias Mitigation
+                                </h3>
                                 {prediction.fairness_metrics.map((metric, index) => (
                                     <div key={index} className={styles.fairnessRow}>
                                         <p>
-                                            <strong>{metric.group}</strong>: {metric.difference_in_dropout_rate}
+                                            <strong>{metric.group}</strong> – Improvement:{" "}
+                                            <strong>{metric.improvement}</strong>
                                         </p>
-                                        <p className={styles.fairnessInterpretation}>{metric.interpretation}</p>
+                                        <p className={styles.fairnessInterpretation}>
+                                            {metric.interpretation}
+                                        </p>
                                     </div>
                                 ))}
                             </div>
                         )}
-
-
 
                         <button className={styles.anotherButton} onClick={handleBack}>
                             Predict for Another Student
                         </button>
                     </div>
                 )}
+
 
                 <p className={styles.note}>
                     *Predictions are based on current academic indicators and model training data.
