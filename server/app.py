@@ -6,10 +6,8 @@ from dotenv import load_dotenv
 import os
 from flask import send_from_directory
 
-# Load environment variables from .env
 load_dotenv()
 
-# Access your MongoDB URI
 mongo_url = os.getenv("MONGO_URL")
 
 app = Flask(__name__, static_folder="../client/build", static_url_path="/")
@@ -30,10 +28,6 @@ def home():
 
 @app.route("/staticimg/explanations/<path:filename>")
 def serve_explanations(filename):
-    """
-    Serve explanation images (LIME/SHAP) from backend static folder.
-    Example: /static/explanations/local_lime_explanation.png
-    """
     explanations_dir = os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "staticimg/explanations"
     )
@@ -64,7 +58,6 @@ def get_student(roll_no):
 
     student = collection.find_one({"Roll_No": roll_no})
     if student:
-        # Remove MongoDB internal _id before returning
         student.pop("_id", None)
         return jsonify(student)
     else:
@@ -75,9 +68,6 @@ if __name__ == "__main__":
     from os import environ
     app.run(host="0.0.0.0", port=int(environ.get("PORT", 8000)))
 
-
-
-@app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve_frontend(path):
     root_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../client/build')

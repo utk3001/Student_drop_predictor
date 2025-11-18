@@ -3,11 +3,9 @@ import numpy as np
 
 n_records = 100
 
-# Helper function to generate correlated grades
 def correlated_grade(base, noise=2.0):
     return np.clip(base + np.random.normal(0, noise, n_records), 10, 20)
 
-# Generate base data
 data = {
     "Roll_No": [f"{np.random.randint(100000,999999)}" for _ in range(n_records)],
     "Marital Status": np.random.randint(0, 2, n_records),
@@ -48,22 +46,18 @@ data = {
     "GDP": np.round(np.random.uniform(1, 5, n_records), 2)
 }
 
-# Admission grade correlates with previous qualification grade
+
 prev_grade = data["Previous qualification (grade)"]
 data["Admission grade"] = np.round(prev_grade * 0.7 + np.random.uniform(20, 60, n_records), 1)
 
-# Tuition fees up to date slightly correlates with debtor status
 debtor = data["Debtor"]
 data["Tuition fees up to date"] = np.where(debtor == 1, np.random.randint(0, 2, n_records), 1)
 
-# Curricular grades correlated with admission grade
 adm_grade = data["Admission grade"]
 data["Curricular units 1st sem (grade)"] = np.round(correlated_grade(adm_grade / 10, noise=1.5), 3)
 data["Curricular units 2nd sem (grade)"] = np.round(correlated_grade(adm_grade / 10, noise=1.5), 3)
 
-# Create DataFrame
 df = pd.DataFrame(data)
 
-# Save to CSV
 df.to_csv("synthetic_students_realistic.csv", index=False)
 print("CSV file 'synthetic_students_realistic.csv' created successfully!")
